@@ -1,0 +1,30 @@
+.beams-container {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+.beams-container canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+}
+
+/* Dark mode: normal appearance */
+body.dark .beams-container,
+html.dark .beams-container {
+  filter: brightness(1) contrast(1);
+}
+
+/* Light mode: invert to work on light background */
+body:not(.dark) .beams-container,
+html:not(.dark) .beams-container {
+  /* filter: invert(0.95) brightness(0.9) contrast(1.1); */
+   filter: invert(0) brightness(0.9) contrast(1.1);
+}

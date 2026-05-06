@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== */
+/* UNIFORM THEME CONFIG */
+/* ==================== */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #00f2ff; /* Cyan - Main accent */
+  --color-secondary: #ff00ea; /* Magenta - Secondary accent */
+  --color-accent: rgba(132, 0, 255, 1); /* Purple */
+  
+  /* Background Colors */
+  --color-bg-dark: #0f172a; /* Dark navy background */
+  --color-bg-card: #060010; /* Card background */
+  --color-border: #392e4e; /* Card border */
+  
+  /* Text Colors */
+  --color-text-primary: #ffffff; /* White text */
+  --color-text-secondary: rgba(255, 255, 255, 0.6); /* Muted white */
+  
+  /* Font Stack */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply text-white overflow-hidden transition-all duration-300 font-sans;
+    background-color: var(--color-bg-dark);
+    font-family: var(--font-sans);
+  }
+
+  html:not(.dark) body {
+    @apply text-slate-900;
+    background-color: #f8fafc;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  /* Ensure consistent font styling */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-black tracking-tight;
+  }
+
+  button {
+    @apply font-bold uppercase tracking-widest transition-all duration-300;
+  }
+}
+
+@layer components {
+  /* Glass morphism effect */
+  .glass-morphism {
+    @apply bg-black/80 dark:bg-black/80 backdrop-blur-xl border border-white/5;
+  }
+
+  html:not(.dark) .glass-morphism {
+    @apply bg-white/80 border-black/5;
+  }
+
+  /* Hero title - unified style */
+  .hero-title {
+    @apply text-[clamp(4rem,15vw,12rem)] font-black leading-[0.85] tracking-[-0.04em];
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+  }
+
+  /* Section view - unified styling */
+  .section-view {
+    @apply w-screen h-screen flex-shrink-0 relative overflow-hidden flex items-center;
+  }
+
+  /* Horizontal scroll wrapper */
+  .horizontal-wrapper {
+    @apply flex overflow-x-auto scroll-smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .horizontal-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Accent text - use primary color */
+  .text-accent {
+    color: var(--color-primary);
+  }
+
+  /* Button with accent color */
+  .btn-accent {
+    @apply px-6 py-3 font-bold uppercase tracking-widest rounded-lg transition-all duration-300;
+    background-color: var(--color-primary);
+    color: #000000;
+  }
+
+  .btn-accent:hover {
+    background-color: #00f2ff;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+  }
+
+  /* Card styling - unified */
+  .card-base {
+    @apply border rounded-lg transition-all duration-300;
+    background-color: var(--color-bg-card);
+    border-color: var(--color-border);
+  }
+
+  .card-base:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 25px rgba(0, 242, 255, 0.2);
+  }
+
+  /* Tag styling - unified with cyan accent */
+  .tag {
+    @apply inline-block px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider;
+    background-color: rgba(0, 242, 255, 0.1);
+    border: 1px solid rgba(0, 242, 255, 0.4);
+    color: var(--color-primary);
+  }
+
+  .tag:hover {
+    background-color: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 12px rgba(0, 242, 255, 0.5);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
