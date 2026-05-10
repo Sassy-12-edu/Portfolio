@@ -16,10 +16,16 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'three': ['three', '@react-three/fiber', '@react-three/drei'],
-          'gsap': ['gsap'],
-          'react-vendor': ['react', 'react-dom'],
+        manualChunks: (id) => {
+          if (id.includes('node_modules/three')) {
+            return 'three';
+          }
+          if (id.includes('node_modules/gsap')) {
+            return 'gsap';
+          }
+          if (id.includes('node_modules/react')) {
+            return 'react-vendor';
+          }
         }
       }
     }
