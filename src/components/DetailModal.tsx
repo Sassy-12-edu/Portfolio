@@ -14,7 +14,6 @@ interface DetailModalProps {
 export const DetailModal: React.FC<DetailModalProps> = memo(function DetailModal({
   isOpen,
   title,
-  description,
   items = [],
   onClose,
   isDark = true
