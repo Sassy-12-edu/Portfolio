@@ -1,4 +1,6 @@
 import type { Config } from 'tailwindcss'
+import forms from '@tailwindcss/forms'
+import containerQueries from '@tailwindcss/container-queries'
 
 const config: Config = {
   content: [
@@ -57,7 +59,7 @@ const config: Config = {
     }
   },
   darkMode: 'class',
-  plugins: []
+  plugins: [forms, containerQueries]
 }
 
 export default config
