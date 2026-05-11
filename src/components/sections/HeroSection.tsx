@@ -8,7 +8,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection = memo(function HeroSection({ isDark = true }: HeroSectionProps) {
-  const PORTRAIT_IMAGE = '/portraits/system-architect.svg';
+  const PORTRAIT_IMAGE = 'portraits/system-architect.svg';
   return (
     <section className="relative w-full h-full overflow-hidden transition-colors duration-300" id="hero" style={{
       backgroundColor: '#0f172a'

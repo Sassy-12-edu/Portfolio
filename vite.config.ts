@@ -8,6 +8,7 @@ export default defineConfig({
     react()
   ],
   build: {
+    outDir: 'docs',
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
