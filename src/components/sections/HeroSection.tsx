@@ -5,9 +5,10 @@ import { HERO_SECTION, TYPEWRITER } from '../../content/strings';
 
 interface HeroSectionProps {
   isDark?: boolean;
+  onContactClick?: () => void;
 }
 
-const HeroSection = memo(function HeroSection({ isDark = true }: HeroSectionProps) {
+const HeroSection = memo(function HeroSection({ isDark = true, onContactClick }: HeroSectionProps) {
   const PORTRAIT_IMAGE = 'portraits/system-architect.svg';
   return (
     <section className="relative w-full h-full overflow-hidden transition-colors duration-300" id="hero" style={{
@@ -71,7 +72,10 @@ const HeroSection = memo(function HeroSection({ isDark = true }: HeroSectionProp
             </div>
 
             <div className="flex gap-3 sm:gap-4 flex-shrink-0 justify-center w-full">
-              <button className="bg-hardware-accent text-black px-4 sm:px-6 py-2 sm:py-3 font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-cyan-400 transition-colors whitespace-nowrap">
+              <button 
+                onClick={onContactClick}
+                className="bg-hardware-accent text-black px-4 sm:px-6 py-2 sm:py-3 font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:bg-cyan-400 transition-colors whitespace-nowrap"
+              >
                 {HERO_SECTION.CTA_BUTTON}
               </button>
             </div>

@@ -124,7 +124,7 @@ export default function Dashboard() {
       >
         {/* STAGE 1: HERO */}
         <section className="w-screen h-screen flex-none snap-start flex items-center justify-center">
-          <HeroSection isDark={isDark} />
+          <HeroSection isDark={isDark} onContactClick={() => scrollToSection(2)} />
         </section>
 
         {/* STAGE 2: MAGIC BENTO */}
