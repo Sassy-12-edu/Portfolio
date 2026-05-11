@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "docs",
+  "env": {
+    "VITE_APP_TITLE": "Muhammad Murtaza | Tech Expert"
+  }
+}
