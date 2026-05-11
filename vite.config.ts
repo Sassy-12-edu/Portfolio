@@ -1,19 +1,18 @@
 import { defineConfig } from 'vite'
-import react, { reactCompilerPreset } from '@vitejs/plugin-react'
-import babel from '@rolldown/plugin-babel'
+import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
   base: '/Portfolio/',
   plugins: [
-    react(),
-    babel({ presets: [reactCompilerPreset()] })
+    react()
   ],
   build: {
     minify: 'terser',
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
     sourcemap: false,
+    target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks: (id: string) => {
@@ -28,9 +27,19 @@ export default defineConfig({
           }
         }
       }
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      }
     }
   },
   define: {
     __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production')
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'three', 'gsap']
   }
 } as any)

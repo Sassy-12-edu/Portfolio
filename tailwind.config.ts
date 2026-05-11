@@ -59,7 +59,14 @@ const config: Config = {
     }
   },
   darkMode: 'class',
-  plugins: [forms, containerQueries]
+  plugins: [forms, containerQueries],
+  // Performance optimizations
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  experimental: {
+    optimizeUniversalDefaults: true,
+  }
 }
 
 export default config
