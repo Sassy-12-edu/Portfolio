@@ -1,6 +1,12 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "docs",
+  "rewrites": [
+    {
+      "source": "/Portfolio/:path*",
+      "destination": "/:path*"
+    }
+  ],
   "env": {
     "VITE_APP_TITLE": "Muhammad Murtaza | Tech Expert"
   }
