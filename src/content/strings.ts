@@ -146,8 +146,8 @@ export const CONTACT_SECTION = {
   DESCRIPTION: 'Open to freelance work, collaborations, AI projects, and startup opportunities.',
   CONTACT_NO: '+92-328-0700038',
   EMAIL: 'business.murtaza12@gmail.com',
-  LINKEDIN: 'https://linkedin.com/in/muhammadmurtaza',
-  GITHUB: 'https://github.com/muhammadmurtaza',
+  LINKEDIN: 'https://www.linkedin.com/in/muhammadmurtaza-dev-ai/',
+  GITHUB: 'https://github.com/Sassy-12-edu',
   SOCIAL_TITLE: 'Connect With Me'
 };
 
