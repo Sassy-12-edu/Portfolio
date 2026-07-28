@@ -78,10 +78,10 @@ function extendMaterial<T extends THREE.Material = THREE.Material>(
   return mat;
 }
 
-const CanvasWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-  <Canvas 
-    dpr={[1, 1.5]} 
-    frameloop="always" 
+const CanvasWrapper: FC<{ children: ReactNode; active: boolean }> = ({ children, active }) => (
+  <Canvas
+    dpr={[1, 1.5]}
+    frameloop={active ? 'always' : 'never'}
     className="beams-container"
     performance={{ min: 0.5, max: 1 }}
   >
@@ -184,6 +184,7 @@ interface BeamsProps {
   scale?: number;
   rotation?: number;
   mode?: 'dark' | 'light';
+  active?: boolean;
 }
 
 const Beams: FC<BeamsProps> = ({
@@ -195,7 +196,8 @@ const Beams: FC<BeamsProps> = ({
   noiseIntensity = 1.75,
   scale = 0.2,
   rotation = 0,
-  mode = 'dark'
+  mode = 'dark',
+  active = true
 }) => {
   const meshRef = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>>(null!);
 
@@ -264,7 +266,7 @@ const Beams: FC<BeamsProps> = ({
   const backgroundColor = mode === 'light' ? '#f0f0f0' : '#0f172a';
 
   return (
-    <CanvasWrapper>
+    <CanvasWrapper active={active}>
       <group rotation={[0, 0, degToRad(rotation)]}>
         <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} />
         <DirLight color={coloredBeamColor} position={[0, 3, 10]} />

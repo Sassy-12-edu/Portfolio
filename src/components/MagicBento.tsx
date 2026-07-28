@@ -370,9 +370,22 @@ const GlobalSpotlight: React.FC<{
 }) => {
   const spotlightRef = useRef<HTMLDivElement | null>(null);
   const isInsideSection = useRef(false);
+  const isSectionVisible = useRef(true);
 
   useEffect(() => {
     if (disableAnimations || !gridRef?.current || !enabled) return;
+
+    const section = gridRef.current.closest('.bento-section');
+    let sectionObserver: IntersectionObserver | undefined;
+    if (section) {
+      sectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          isSectionVisible.current = entry.isIntersecting;
+        },
+        { threshold: 0 }
+      );
+      sectionObserver.observe(section);
+    }
 
     const spotlight = document.createElement('div');
     spotlight.className = 'global-spotlight';
@@ -399,9 +412,8 @@ const GlobalSpotlight: React.FC<{
     spotlightRef.current = spotlight;
 
     const handleMouseMove = throttle((e: MouseEvent) => {
-      if (!spotlightRef.current || !gridRef.current) return;
+      if (!spotlightRef.current || !gridRef.current || !isSectionVisible.current) return;
 
-      const section = gridRef.current.closest('.bento-section');
       const rect = section?.getBoundingClientRect();
       const mouseInside =
         rect && e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
@@ -484,6 +496,7 @@ const GlobalSpotlight: React.FC<{
     document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      sectionObserver?.disconnect();
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseleave', handleMouseLeave);
       spotlightRef.current?.parentNode?.removeChild(spotlightRef.current);

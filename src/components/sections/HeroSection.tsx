@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import Typewriter from '../Typewriter';
 import Beams from '../Beams';
 import { HERO_SECTION, TYPEWRITER } from '../../content/strings';
@@ -10,12 +10,36 @@ interface HeroSectionProps {
 
 const HeroSection = memo(function HeroSection({ isDark = true, onContactClick }: HeroSectionProps) {
   const PORTRAIT_IMAGE = 'portraits/system-architect.svg';
+  const beamsWrapperRef = useRef<HTMLDivElement>(null);
+  const [isIntersecting, setIsIntersecting] = useState(true);
+  const [isTabVisible, setIsTabVisible] = useState(!document.hidden);
+
+  // Stop the WebGL beams render loop when the hero is scrolled off-screen
+  // or the tab is backgrounded - it otherwise renders every frame forever.
+  useEffect(() => {
+    const node = beamsWrapperRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsIntersecting(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibility = () => setIsTabVisible(!document.hidden);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
+
   return (
     <section className="relative w-full h-full overflow-hidden transition-colors duration-300" id="hero" style={{
       backgroundColor: '#0f172a'
     }}>
       {/* Beams Background - Full coverage */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full" ref={beamsWrapperRef}>
         <Beams
           beamWidth={3}
           beamHeight={30}
@@ -26,6 +50,7 @@ const HeroSection = memo(function HeroSection({ isDark = true, onContactClick }:
           scale={0.2}
           rotation={30}
           mode={isDark ? 'dark' : 'light'}
+          active={isIntersecting && isTabVisible}
         />
       </div>
 
@@ -39,12 +64,8 @@ const HeroSection = memo(function HeroSection({ isDark = true, onContactClick }:
               src={PORTRAIT_IMAGE}
               alt="System Architect"
               className="w-full h-full object-cover rounded-xl shadow-2xl opacity-40 md:opacity-50"
-              loading="lazy"
               decoding="async"
               fetchPriority="high"
-              onError={(e) => {
-                e.currentTarget.src = 'https://via.placeholder.com/800x600?text=System+Architect';
-              }}
             />
           </div>
         </div>
